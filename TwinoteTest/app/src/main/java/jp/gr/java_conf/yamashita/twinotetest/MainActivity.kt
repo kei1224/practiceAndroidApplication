@@ -1,13 +1,16 @@
 package jp.gr.java_conf.yamashita.twinotetest
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import jp.gr.java_conf.yamashita.twinotetest.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -15,6 +18,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
@@ -29,6 +33,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        // アクセストークンを所持していなければアプリケーション認証Activityへ遷移
+        if(!hasAccessToken(this)){
+            val intent = Intent(getApplication(), TwitterOAuthActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+
+        }
+        if(intent.action == Intent.ACTION_SEND){
+            val twitterIntentExtras : Bundle = intent.extras
+
+            Log.i("twinote_extras", twitterIntentExtras.toString())
+            for(key in twitterIntentExtras.keySet()){
+                Log.i("twinote_bundle", key)
+            }
+
+            val text = twitterIntentExtras.getString("android.intent.extra.TEXT")
+            val id : Long = twitterIntentExtras.getLong("tweet_id")
+            Log.i("twinote_TEXT", text)
+            Log.i("twinote_ID", id.toString())
+        }
+
+
+
     }
 
     override fun onBackPressed() {
