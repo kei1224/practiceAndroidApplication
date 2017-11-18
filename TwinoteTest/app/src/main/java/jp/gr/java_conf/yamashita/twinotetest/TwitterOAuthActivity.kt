@@ -46,7 +46,6 @@ class TwitterOAuthActivity : AppCompatActivity() {
         val task: AsyncTask<Void, Void, String> = object : AsyncTask<Void, Void, String>(){
             override fun doInBackground(vararg params: Void): String? {
                 try {
-                    // ここでTwitterException
                     Log.i("Twinotetest", "callbackURL:"+mCallbackURL)
                     mRequestToken = mTwitter?.getOAuthRequestToken(mCallbackURL)
                     // Log.i("TwinoteTest", mRequestToken?.authorizationURL)

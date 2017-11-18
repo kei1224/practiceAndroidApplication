@@ -1,6 +1,9 @@
 package jp.gr.java_conf.yamashita.twinotetest
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -14,6 +17,9 @@ import jp.gr.java_conf.yamashita.twinotetest.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import twitter4j.*
+import twitter4j.conf.ConfigurationBuilder
+import java.util.prefs.Preferences
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -55,6 +61,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val id : Long = twitterIntentExtras.getLong("tweet_id")
             Log.i("twinote_TEXT", text)
             Log.i("twinote_ID", id.toString())
+
+            val builder = ConfigurationBuilder()
+            // builder.setTweetModeExtended(true)
+            val preferences: SharedPreferences = getSharedPreferences("twitter_access_token", Context.MODE_PRIVATE)
+            builder.setOAuthConsumerKey(getString(R.string.twitter_consumer_key))
+                    .setOAuthConsumerSecret(getString(R.string.twitter_consumer_secret))
+                    .setOAuthAccessToken(preferences.getString("token", null))
+                    .setOAuthAccessTokenSecret(preferences.getString("token_secret", null))
+                    .setTweetModeExtended(true)
+            val factory = TwitterFactory(builder.build())
+            val twitter = factory.getInstance()
+            // ここから
+
+            // val twitter = getTwitterInstance(this)
+
+            val task = object : AsyncTask<Void, Void, Status>(){
+                override fun doInBackground(vararg p0: Void?): twitter4j.Status {
+                    return twitter.showStatus(id)
+                }
+
+                override fun onPostExecute(tweetStatus: twitter4j.Status) {
+                    intent_tweet.text = tweetStatus.text
+                }
+            }
+            task.execute()
+
         }
 
 
