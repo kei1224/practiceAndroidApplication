@@ -34,8 +34,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:host="twitter"
-                    android:scheme="gabu"/>
+                    android:scheme="test"
+                    android:host="twitter" />
             </intent-filter>
         </activity>
     </application>

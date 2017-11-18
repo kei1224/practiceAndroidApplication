@@ -20,8 +20,9 @@ import twitter4j.auth.AccessToken
         val consumerSecret: String = context.getString(R.string.twitter_consumer_secret)
 
         // Twitterオブジェクトのインスタンス
+
         val factory : TwitterFactory = TwitterFactory()
-        val twitter : Twitter = factory.instance
+        val twitter : Twitter = factory.getInstance()
         twitter.setOAuthConsumer(consumerKey, consumerSecret)
 
         // トークンの設定

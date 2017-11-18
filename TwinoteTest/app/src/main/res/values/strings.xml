@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="twitter_consumer_key">dP1yiiyIDsrQYpigUpsm43wWh</string>
-    <string name="twitter_consumer_secret">6z9J7EYmmuFRgNPASULZrSegieE6nZdUPh35D9koJ0LZzvcwv</string>
-    <string name="twitter_callback_url">gabu://twitter</string>
+    <string name="twitter_consumer_key">R7RYC0hTdDJRxMExr5JQFXMZw</string>
+    <string name="twitter_consumer_secret">SmNOOTwSWknYfqwlum8qLV3mPfsnzQ49gaaXn0k7Ejrq5zBDbN</string>
+    <string name="twitter_callback_url">test://twitter</string>
 </resources>
