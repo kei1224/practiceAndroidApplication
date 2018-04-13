@@ -3,10 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <sample.qiitaclient.view.ArticleView
+
+    <jp.gr.java_conf.yamashita.qiitaclient.view.ArticleView
         android:id="@+id/article_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
     <WebView
         android:id="@+id/web_view"
