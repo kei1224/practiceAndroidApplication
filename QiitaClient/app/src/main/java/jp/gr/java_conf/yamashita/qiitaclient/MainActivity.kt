@@ -6,23 +6,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.ProgressBar
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.GsonBuilder
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle.kotlin.bindToLifecycle
 import jp.gr.java_conf.yamashita.qiitaclient.client.ArticleClient
-import jp.gr.java_conf.yamashita.qiitaclient.model.Article
-import jp.gr.java_conf.yamashita.qiitaclient.model.User
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import javax.inject.Inject
 
 class MainActivity : RxAppCompatActivity() {
+    @Inject
+    lateinit var articleClient: ArticleClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as QiitaClientApp).component.inject(this)
         setContentView(R.layout.activity_main)
 
         val listView: ListView = findViewById(R.id.list_view)
@@ -33,14 +30,11 @@ class MainActivity : RxAppCompatActivity() {
         val listAdapter = ArticleListAdapter(applicationContext)
         listView.adapter = listAdapter
         listView.setOnItemClickListener{ adapterView, view, position, id ->
-            // val article = listAdapter.articles[position]
-            // ArticleActivity.intent(this, article).let { startActivity(it)}
             val intent = ArticleActivity.intent(this, listAdapter.articles[position])
             startActivity(intent)
         }
-        // listAdapter.articles = listOf(dummyArticle("Kotlin入門", "たろう"),
-        //        dummyArticle("Java入門", "じろう"))
 
+        /*
         val gson = GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create()
@@ -49,7 +43,7 @@ class MainActivity : RxAppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
-        val articleClient = retrofit.create(ArticleClient::class.java)
+        val articleClient = retrofit.create(ArticleClient::class.java)*/
 
         searchButton.setOnClickListener {
             progressBar.visibility = View.VISIBLE

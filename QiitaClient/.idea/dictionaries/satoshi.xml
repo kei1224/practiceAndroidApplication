@@ -3,6 +3,7 @@
     <words>
       <w>gson</w>
       <w>qiitaclient</w>
+      <w>rxlifecycle</w>
     </words>
   </dictionary>
 </component>
