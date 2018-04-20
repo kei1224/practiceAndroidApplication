@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto" >
+    <data>
+        <variable
+            name="article"
+            type="jp.gr.java_conf.yamashita.qiitaclient.model.Article"/>
+    </data>
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <jp.gr.java_conf.yamashita.qiitaclient.view.ArticleView
-        android:id="@+id/article_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <jp.gr.java_conf.yamashita.qiitaclient.view.ArticleView
+            android:id="@+id/article_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:article="@{article}"/>
 
 
-    <WebView
-        android:id="@+id/web_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-</LinearLayout>
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            bind:loadUrl="@{article.url}"
+            />
+    </LinearLayout>
+</layout>
